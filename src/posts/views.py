@@ -61,7 +61,6 @@ def load_posts_data_view(request, num_posts):
         return JsonResponse({'data':data[lower:upper], 'size':size})
     
 def post_detail_data_view(request, pk):
-    # if request.headers.get('x-requested-with') == 'XMLHttpRequest':
     obj = Post.objects.get(pk=pk)
     data = {
         'id': obj.id,
@@ -73,7 +72,7 @@ def post_detail_data_view(request, pk):
     return JsonResponse({'data':data})
 
 def like_unlike_post(request):
-    if request.headers.get('x-requested-with') == 'XMLHttpRequest': # request.is_ajax() was deprecated.
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         pk = request.POST.get('pk')
         obj = Post.objects.get(pk=pk)
         if request.user in obj.liked.all():
@@ -93,14 +92,14 @@ def update_post(request, pk):
         obj.title = new_title
         obj.body = new_body
         obj.save()
-    return JsonResponse({
-        'title': new_title,
-        'body': new_body,
-    })
+        return JsonResponse({
+            'title': new_title,
+            'body': new_body,
+        })
 
 def delete_post(request, pk):
     obj = Post.objects.get(pk=pk)
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         obj.delete()
-    return JsonResponse({})
+        return JsonResponse({})
 
