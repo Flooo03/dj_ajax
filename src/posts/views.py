@@ -60,7 +60,18 @@ def load_posts_data_view(request, num_posts):
             data.append(item)
         return JsonResponse({'data':data[lower:upper], 'size':size})
     
-    
+def post_detail_data_view(request, pk):
+    # if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+    obj = Post.objects.get(pk=pk)
+    data = {
+        'id': obj.id,
+        'title': obj.title,
+        'body': obj.body,
+        'author': obj.author.user.username,
+        'logged_in': request.user.username,
+    }
+    return JsonResponse({'data':data})
+
 def like_unlike_post(request):
     if request.headers.get('x-requested-with') == 'XMLHttpRequest': # request.is_ajax() was deprecated.
         pk = request.POST.get('pk')
