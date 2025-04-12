@@ -78,7 +78,6 @@ def post_detail_data_view(request, pk):
 
 
 @login_required
-@action_permission
 def like_unlike_post(request):
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         pk = request.POST.get('pk')
