@@ -21,7 +21,7 @@ posts
                     aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="post-form">
+                <form id="post-form" autocomplete="off">
                     {% csrf_token %}
                     {{form.as_p}}
                     <div class="modal-footer">
