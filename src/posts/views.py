@@ -20,12 +20,10 @@ def post_list_and_create(request):
                 'body': instance.body,
                 'author': instance.author.user.username,
                 'id': instance.id,
-            }) 
-                
+            })                 
     context = {
         'form': form,
     }
-    
     return render(request, 'posts/main.html', context)
 
 def post_detail(request, pk):
